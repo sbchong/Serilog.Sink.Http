@@ -30,7 +30,7 @@ namespace Serilog.Sink.Http.Sink
             var message = logEvent.RenderMessage(_formatProvider);
             //Console.WriteLine(DateTimeOffset.Now.ToString() + " " + message);
             var req = new HttpLogEvent(logEvent.Level, message);
-            var s = JsonConvert.SerializeObject(b);
+            var s = JsonConvert.SerializeObject(req);
             await new HttpClient().PostAsync(_uri, new StringContent(s, Encoding.UTF8, "application/json"));
         }
     }
