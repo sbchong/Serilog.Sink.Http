@@ -38,9 +38,9 @@ namespace Serilog.Sink.Http.Sink
             var model = new HttpLogEvent(logEvent.Level, message);
             var buffer = JsonSerializer.SerializeToUtf8Bytes(model);
             var content = new ByteArrayContent(buffer);
+            content.Headers.Add("Content-Type", "application/json");
             var request = new HttpRequestMessage(HttpMethod.Post, _uri);
             request.Content = content;
-            request.Headers.Add("Content-Type", "application/json");
             await _httpClient.SendAsync(request);
         }
     }
